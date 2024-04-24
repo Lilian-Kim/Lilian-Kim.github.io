@@ -21,8 +21,8 @@ const MENU_ITEMS = [
   { value: 15, item: '월선네' },
   { value: 16, item: '카야 토스트' },
   { value: 17, item: '스타벅스' },
-  // { value: 18, item: '' },
-  // { value: 19, item: '' },
+  { value: 18, item: '짬뽕지존' },
+  { value: 19, item: '쌈밥' },
   // { value: 20, item: '' },
   // { value: 21, item: '' },
 ]
@@ -33,7 +33,7 @@ export default function Home() {
 
   const handlePickMenu = () => {
     setCount((prev) => prev + 1)
-    const item = Math.floor(Math.random() * 17) + 1
+    const item = Math.floor(Math.random() * 19) + 1
     setSelectedMenu(MENU_ITEMS[item].item)
   }
   return (
