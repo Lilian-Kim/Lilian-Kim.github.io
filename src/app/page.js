@@ -1,95 +1,51 @@
-import Image from "next/image";
+'use client'
+
+import { useState } from 'react'
 import styles from "./page.module.css";
 
+const MENU_ITEMS = [
+  { value: 1, item: '육회 비빔밥' },
+  { value: 2, item: '돈까스' },
+  { value: 3, item: '마파두부' },
+  { value: 4, item: '양꼬치집 점심 뷔페' },
+  { value: 5, item: '파스타' },
+  { value: 6, item: '맥도날드' },
+  { value: 7, item: '서브웨이' },
+  { value: 8, item: '포케' },
+  { value: 9, item: '분식' },
+  { value: 10, item: '닭갈비' },
+  { value: 11, item: '순대국밥' },
+  { value: 12, item: '라멘' },
+  { value: 13, item: '부대찌개' },
+  { value: 14, item: '쭈마왕' },
+  { value: 15, item: '월선네' },
+  { value: 16, item: '카야 토스트' },
+  { value: 17, item: '스타벅스' },
+  // { value: 18, item: '' },
+  // { value: 19, item: '' },
+  // { value: 20, item: '' },
+  // { value: 21, item: '' },
+]
+
 export default function Home() {
+  const [selectedMenu, setSelectedMenu] = useState(null)
+  const [count, setCount] = useState(0)
+
+  const handlePickMenu = () => {
+    setCount((prev) => prev + 1)
+    const item = Math.floor(Math.random() * 17) + 1
+    setSelectedMenu(MENU_ITEMS[item].item)
+  }
   return (
     <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+      <div>
+        <h2>점심 메뉴 선택기</h2>
+        <div className={styles.menuWrapper}>
+          <strong>{selectedMenu || '메뉴를 선택하세요'}</strong>
+          <button disabled={count === 2} type="button" onClick={handlePickMenu}>{count === 0 ? '고르기' : count === 1 ? '다시 고르기' : '선택불가'}</button>
         </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
+        {count === 2 && <p className={styles.info}>{`더는 선택할 수 없습니다. 오늘의 점심은 ${selectedMenu}입니다.`}</p>}
       </div>
     </main>
-  );
+  )
 }
